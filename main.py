@@ -34,12 +34,12 @@ def get_last_prime():
         return 2
     return 2
 
-def find_primes(max_number=10000000, batch_size=1000000):
+def find_primes(batch_size=1000000):
     current = get_last_prime() + 1
     total_primes = 0
     max_digits = 0
-    with tqdm(total=max_number, desc="Searching for primes", unit=" numbers") as progress_bar:
-        while current < max_number:
+    while True:  # Infinite loop for continuous prime searching
+        with tqdm(total=batch_size, desc="Searching for primes", unit=" numbers") as progress_bar:
             numbers = np.arange(current, current + batch_size, dtype=np.int32)
             results = np.zeros(batch_size, dtype=np.int32)
             threadsperblock = 256
@@ -63,8 +63,7 @@ def find_primes(max_number=10000000, batch_size=1000000):
                 "Longest Digits": max_digits
             })
             progress_bar.update(batch_size)
-            current += batch_size
+            current += batch_size  # Move to next batch of numbers
 
 if __name__ == "__main__":
-    for i in range(10):
-        find_primes(10000000, 1000000)
+    find_primes()
