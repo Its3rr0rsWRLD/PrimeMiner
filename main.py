@@ -24,8 +24,18 @@ def save_prime(prime):
     with open(FILE_PATH, "a") as file:
         file.write(f"{prime}\n")
 
+def get_last_prime():
+    try:
+        with open(FILE_PATH, "r") as file:
+            lines = file.readlines()
+            if lines:
+                return int(lines[-1].strip())
+    except FileNotFoundError:
+        return 2
+    return 2
+
 def find_primes(max_number=10000000, batch_size=1000000):
-    current = 2
+    current = get_last_prime() + 1
     total_primes = 0
     max_digits = 0
     with tqdm(total=max_number, desc="Searching for primes", unit=" numbers") as progress_bar:
@@ -56,4 +66,5 @@ def find_primes(max_number=10000000, batch_size=1000000):
             current += batch_size
 
 if __name__ == "__main__":
-    find_primes(10000000, 1000000)
+    for i in range(10):
+        find_primes(10000000, 1000000)
