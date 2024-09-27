@@ -1,1 +1,4 @@
 primes.txt
+/build
+/dist
+main.spec
