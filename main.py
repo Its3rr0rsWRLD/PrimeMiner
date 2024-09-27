@@ -100,6 +100,15 @@ def plot_progress(queue):
     runtime_list = []
     max_digits = 0
 
+    start_time = time.time()
+
+    def handle_close(event):
+        # Stop the plotting process when the window is closed
+        plt.close('all')
+        os._exit(0)  # Forcefully exit all processes when the window is closed
+
+    fig.canvas.mpl_connect('close_event', handle_close)
+
     while True:
         try:
             data = queue.get(timeout=1)
@@ -119,9 +128,13 @@ def plot_progress(queue):
             axs[1].cla()
             axs[2].cla()
 
+            # Get the elapsed time
+            elapsed_time = time.time() - start_time
+            elapsed_minutes, elapsed_seconds = divmod(elapsed_time, 60)
+
             # Plot Primes Found per Batch
             axs[0].plot(x_data, y_data, label="Primes Found per Batch", color="blue")
-            axs[0].set_title("Primes Found per Batch")
+            axs[0].set_title(f"Primes Found per Batch (Runtime: {int(elapsed_minutes)}m {int(elapsed_seconds)}s)")
             axs[0].set_xlabel("Batches")
             axs[0].set_ylabel("Primes Found per Batch")
             axs[0].legend()
