@@ -137,9 +137,8 @@ The program provides real-time visualization using Matplotlib, displaying two gr
 
 #### Example Visualization
 
-![PrimeMiner Visualization](visualization_example.png)
+![Visualization](https://github.com/user-attachments/assets/7306867e-c3fe-4d18-af1d-2117eca3f0c5)
 
-*Note: The image above is a placeholder. Replace with an actual screenshot if available.*
 
 ---
 
